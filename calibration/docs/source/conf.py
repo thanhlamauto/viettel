@@ -1,0 +1,17 @@
+project = 'Hướng dẫn calibration camera bằng Kalibr và Docker'
+author = 'Edge Computer'
+language = 'vi'
+extensions = []
+root_doc = 'index'
+html_theme = 'alabaster'
+html_title = 'Kalibr · Hướng dẫn calibration'
+html_theme_options = {'nosidebar': True, 'page_width': '900px'}
+html_sidebars = {'**': []}
+html_show_sourcelink = False
+html_show_sphinx = False
+html_show_copyright = False
+pygments_style = 'friendly'
+templates_path = ['_templates']
+html_static_path = ['_static']
+html_css_files = ['fonts.css', 'custom.css']
+exclude_patterns = []

@@ -1,0 +1,5 @@
+{% extends "!layout.html" %}
+{% set metatags = metatags|replace('<meta name="viewport" content="width=device-width, initial-scale=1" />', '') %}
+{% block htmltitle %}<title>{{ title|striptags|e }}</title>{% endblock %}
+{% block extrahead %}{% endblock %}
+{% block footer %}{% endblock %}

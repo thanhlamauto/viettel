@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+*.bag
+*.bag.active
+calibration/docs/build/
+.DS_Store
+.doctrees/
+.buildinfo*
