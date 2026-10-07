@@ -1,8 +1,4 @@
-# Tutorial mentor — bản được cung cấp
-
-Nội dung bên dưới giữ các lệnh, đường dẫn và lỗi đánh máy của tutorial được gửi trong cuộc trao đổi, để đối chiếu. Bản hướng dẫn đã biên tập nằm tại `../docs/source/index.rst`.
-
-Requirement: Utilizing SphereX to generate tutorial documentation
+# Hướng dẫn calibration camera bằng Kalibr và Docker
 
 Create workspace:
 

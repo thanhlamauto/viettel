@@ -1,10 +1,10 @@
 # Tutorial Kalibr theo bản mentor
 
-Bộ tài liệu dùng cấu trúc Sphinx và `sphinx_rtd_theme` như `pcs-docs-master.zip`: có trang chủ, menu trái, ô tìm kiếm, trang Index và footer. Nội dung trang tutorial là bản sao nguyên byte của [`tutorial-original.md`](calibration/mentor/tutorial-original.md); không chỉnh lệnh hay câu chữ của mentor.
+Bộ tài liệu dùng cấu trúc Sphinx và `sphinx_rtd_theme` như `pcs-docs-master.zip`: có trang chủ, menu trái, ô tìm kiếm, trang Index và footer. Trang tutorial giữ nguyên nội dung và các lệnh của [bản mentor gốc](calibration/mentor/tutorial-original.md), chỉ đổi tiêu đề và bỏ phần lời dẫn ở đầu.
 
 - [Trang chủ HTML offline](calibration/docs/html/index.html)
 - [Trang tutorial HTML](calibration/docs/html/tutorial-original.html)
-- [Nguồn Markdown nguyên bản](calibration/docs/source/tutorial-original.md)
+- [Nguồn Markdown của trang tutorial](calibration/docs/source/tutorial-original.md)
 
 Để build lại (Python 3.10 trở lên):
 
@@ -15,4 +15,4 @@ bash calibration/docs/build.sh
 bash calibration/docs/publish-html.sh
 ```
 
-Giữ cả thư mục `calibration/docs/html` khi chia sẻ để giao diện và tìm kiếm hoạt động offline. Repo không chứa ROS bag, Docker image hoặc mã Kalibr. Vì nội dung giữ nguyên bản gốc, các lệnh và đường dẫn trong tutorial chưa được sửa hay xác nhận chạy được trên máy khác.
+Giữ cả thư mục `calibration/docs/html` khi chia sẻ để giao diện và tìm kiếm hoạt động offline. Repo không chứa ROS bag, Docker image hoặc mã Kalibr. Các lệnh và đường dẫn trong tutorial chưa được sửa hay xác nhận chạy được trên máy khác.
