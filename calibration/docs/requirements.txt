@@ -22,3 +22,9 @@ sphinxcontrib-qthelp==2.0.0
 sphinxcontrib-serializinghtml==2.0.0
 tomli==2.4.1
 urllib3==2.8.0
+markdown-it-py==4.2.0
+mdit-py-plugins==0.6.1
+mdurl==0.1.2
+myst-parser==5.1.0
+PyYAML==6.0.3
+sphinx-math-dollar==1.3

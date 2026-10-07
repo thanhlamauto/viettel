@@ -1,0 +1,246 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutorial mentor — bản được cung cấp &mdash; tutorials v0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2fea6348"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Camera Calibration Tutorial" href="index.html" />
+</head>
+
+<body class="wy-body-for-nav">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+
+          <a href="index.html" class="icon icon-home">
+            tutorials
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial mentor — bản được cung cấp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#step-2">Step 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-3-create-folder-which-containing-yaml-and-bag-file">STEP 3: create folder which containing yaml and bag file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-4-run-image">STEP 4: Run image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ghi-chu-tu-trao-doi">Ghi chú từ trao đổi</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">tutorials</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Tutorial mentor — bản được cung cấp</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/tutorial-original.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+
+  <section id="tutorial-mentor-ban-duoc-cung-cap">
+<h1>Tutorial mentor — bản được cung cấp<a class="headerlink" href="#tutorial-mentor-ban-duoc-cung-cap" title="Link to this heading"></a></h1>
+<p>Nội dung bên dưới giữ các lệnh, đường dẫn và lỗi đánh máy của tutorial được gửi trong cuộc trao đổi, để đối chiếu. Bản hướng dẫn đã biên tập nằm tại <code class="docutils literal notranslate"><span class="pre">../docs/source/index.rst</span></code>.</p>
+<p>Requirement: Utilizing SphereX to generate tutorial documentation</p>
+<p>Create workspace:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>~/kalibr_workspace/
+<span class="nb">cd</span><span class="w"> </span>~/kalibr_workspace/
+mkdir<span class="w"> </span>src
+</pre></div>
+</div>
+<p>then, pull kalibr project:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://archlinux.tail3e91a1.ts.net/tools/camera_calibration.git
+</pre></div>
+</div>
+<section id="step-2">
+<h2>Step 2<a class="headerlink" href="#step-2" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>create Docker file ==&gt; to build Image</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/kalibr_workspace/
+touch<span class="w"> </span>Dockerfile_ros1_20_04
+</pre></div>
+</div>
+<p>and then fill these below code to Dockerfile_ros1_20_04:</p>
+<div class="highlight-dockerfile notranslate"><div class="highlight"><pre><span></span><span class="k">FROM</span><span class="w"> </span><span class="s">osrf/ros:noetic-desktop-full</span>
+
+<span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>--no-install-recommends<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>git<span class="w"> </span>wget<span class="w"> </span>autoconf<span class="w"> </span>automake<span class="w"> </span>nano<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>python3-dev<span class="w"> </span>python3-pip<span class="w"> </span>python3-scipy<span class="w"> </span>python3-matplotlib<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>ipython3<span class="w"> </span>python3-wxgtk4.0<span class="w"> </span>python3-tk<span class="w"> </span>python3-igraph<span class="w"> </span>python3-pyx<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libeigen3-dev<span class="w"> </span>libboost-all-dev<span class="w"> </span>libsuitesparse-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>doxygen<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libopencv-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libpoco-dev<span class="w"> </span>libtbb-dev<span class="w"> </span>libblas-dev<span class="w"> </span>liblapack-dev<span class="w"> </span>libv4l-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>python3-catkin-tools<span class="w"> </span>python3-osrf-pycommon<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>byobu<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+
+<span class="k">ENV</span><span class="w"> </span><span class="nv">WORKSPACE</span><span class="o">=</span>/catkin_ws
+<span class="k">ENV</span><span class="w"> </span><span class="nv">MPLBACKEND</span><span class="o">=</span>Agg
+<span class="k">ENV</span><span class="w"> </span><span class="nv">KALIBR_MANUAL_FOCAL_LENGTH_INIT</span><span class="o">=</span><span class="m">1</span>
+
+<span class="k">RUN</span><span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="nv">$WORKSPACE</span>/src<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nb">cd</span><span class="w"> </span><span class="nv">$WORKSPACE</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>catkin<span class="w"> </span>init<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>catkin<span class="w"> </span>config<span class="w"> </span>--extend<span class="w"> </span>/opt/ros/noetic<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>catkin<span class="w"> </span>config<span class="w"> </span>--cmake-args<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release
+
+<span class="k">COPY</span><span class="w"> </span>./kalibr<span class="w"> </span><span class="nv">$WORKSPACE</span>/src/kalibr
+
+<span class="k">RUN</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span><span class="nv">$WORKSPACE</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>catkin<span class="w"> </span>build<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
+
+<span class="k">RUN</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">'#!/bin/bash\n\</span>
+<span class="s1">set -e\n\</span>
+<span class="s1">source "$WORKSPACE/devel/setup.bash"\n\</span>
+<span class="s1">export MPLBACKEND=Agg\n\</span>
+<span class="s1">export KALIBR_MANUAL_FOCAL_LENGTH_INIT=1\n\</span>
+<span class="s1">exec "$@"'</span><span class="w"> </span>&gt;<span class="w"> </span>/entrypoint.sh<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>/entrypoint.sh
+
+<span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">"/entrypoint.sh"</span><span class="p">]</span>
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">"bash"</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>After that, we need to build image by using this command</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>Dockerfile_ros1_20_04<span class="w"> </span>-t<span class="w"> </span>kalibr:local<span class="w"> </span>.
+</pre></div>
+</div>
+<p>After building image successfully, you can check by: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">docket</span> <span class="pre">image</span> <span class="pre">list</span></code>
+then take a look the image like this (for instance):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>IMAGE                        ID             DISK USAGE   CONTENT SIZE   EXTRA
+kalibr:local                 4708d0af3ec2       7.01GB         1.36GB
+</pre></div>
+</div>
+</section>
+<section id="step-3-create-folder-which-containing-yaml-and-bag-file">
+<h2>STEP 3: create folder which containing yaml and bag file<a class="headerlink" href="#step-3-create-folder-which-containing-yaml-and-bag-file" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/kalibr_workspace
+mkdir<span class="w"> </span>data
+<span class="nb">cd</span><span class="w"> </span>data
+touch<span class="w"> </span>target.yaml
+</pre></div>
+</div>
+<p>and then fill that file with these configurations:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">target_type</span><span class="p">:</span><span class="w"> </span><span class="s">'aprilgrid'</span>
+<span class="nt">tagCols</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span><span class="w">               </span><span class="c1"># Marker Grid Width (6 columns)</span>
+<span class="nt">tagRows</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span><span class="w">               </span><span class="c1"># Marker Grid Height (6 rows)</span>
+<span class="nt">tagSize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0235</span><span class="w">          </span><span class="c1"># Marker Length in meters (2.35 cm)</span>
+<span class="nt">tagSpacing</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2979</span><span class="w">       </span><span class="c1"># Spacer Length / Marker Length (0.7 / 2.35)</span>
+</pre></div>
+</div>
+<p>In addition, we need to take bag file into <code class="docutils literal notranslate"><span class="pre">~/kalibr_workspace/data/</span></code>
+Assume that we have “calibration_70.bag” file inside <code class="docutils literal notranslate"><span class="pre">~/kalibr_workspace/data/</span></code></p>
+</section>
+<section id="step-4-run-image">
+<h2>STEP 4: Run image<a class="headerlink" href="#step-4-run-image" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--net<span class="o">=</span>host<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--ipc<span class="o">=</span>host<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-w<span class="w"> </span>/data<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span>/home/getac/Data/kalibr_workspace/data:/data:rw<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>kalibr:local
+</pre></div>
+</div>
+<p>And then cd /catkin_ws/
+source /devel/setup.bash
+run this command to calibration with recorded bag file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/catkin_ws/
+<span class="nb">source</span><span class="w"> </span>/devel/setup.bash
+rosrun<span class="w"> </span>kalibr<span class="w"> </span>kalibr_calibrate_cameras<span class="w"> </span>--target<span class="w"> </span>/data/target.yaml<span class="w"> </span>--bag<span class="w"> </span>/data/calibration_70.bag<span class="w"> </span>--topics<span class="w"> </span>/camera/image_raw<span class="w"> </span>--models<span class="w"> </span>pinhole-radtan<span class="w"> </span>--dont-show-report
+</pre></div>
+</div>
+<p>After finishing calibration, we will get 3 files like this</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>camchain-calibration_70.yaml report-cam-calibration_70.pdf results-cam-calibration_70.txt
+</pre></div>
+</div>
+<p>And then copy these files to current PC:
+Overall, we need to check Container ID:
+using this command: docker ps</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>docker ps
+CONTAINER ID   IMAGE               COMMAND                  CREATED          STATUS          PORTS     NAMES
+3b84ada49c3c   kalibr:local        "/entrypoint.sh bash"    12 minutes ago   Up 12 minutes             cool_chaum
+</pre></div>
+</div>
+<p>and run at host pc:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>cp<span class="w"> </span>&lt;CONTAINER_ID_OR_NAME&gt;:/catkin_ws/camchain-calibration_70.yaml<span class="w"> </span>/home/getac/kalibr_workspace/data/
+docker<span class="w"> </span>cp<span class="w"> </span>&lt;CONTAINER_ID_OR_NAME&gt;:/catkin_ws/report-cam-calibration_70.pdf<span class="w"> </span>/home/getac/kalibr_workspace/data/
+docker<span class="w"> </span>cp<span class="w"> </span>&lt;CONTAINER_ID_OR_NAME&gt;:/catkin_ws/results-cam-calibration_70.txt<span class="w"> </span>/home/getac/kalibr_workspace/data/
+</pre></div>
+</div>
+</section>
+<section id="ghi-chu-tu-trao-doi">
+<h2>Ghi chú từ trao đổi<a class="headerlink" href="#ghi-chu-tu-trao-doi" title="Link to this heading"></a></h2>
+<p>Mentor yêu cầu dùng bản mã local thay cho clone repository nội bộ. Người học đã dừng tại bước build image; log lỗi lúc đó được lưu trong <code class="docutils literal notranslate"><span class="pre">build-session.txt</span></code>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Camera Calibration Tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Phat-hc.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+</body>
+</html>

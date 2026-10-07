@@ -1,26 +1,25 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="vi" data-content_root="./">
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hướng dẫn calibration camera bằng Kalibr và Docker &mdash; Kalibr</title>
+  <title>Camera Calibration Tutorial &mdash; tutorials v0.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="_static/no-sidebar.css?v=a4af4b2b" />
 
 
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=d3888072"></script>
+      <script src="_static/documentation_options.js?v=2fea6348"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-      <script src="_static/translations.js?v=4c1d55b0"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Tìm Kiếm" href="search.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tutorial mentor — bản được cung cấp" href="tutorial-original.html" />
 </head>
 
 <body class="wy-body-for-nav">
@@ -32,7 +31,7 @@
 
 
           <a href="#" class="icon icon-home">
-            Hướng dẫn calibration camera bằng Kalibr và Docker
+            tutorials
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -42,25 +41,18 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">Hướng dẫn calibration camera bằng Kalibr và Docker</a><ul>
-<li><a class="reference internal" href="#tao-workspace-va-clone-ma-kalibr">1. Tạo workspace và clone mã Kalibr</a></li>
-<li><a class="reference internal" href="#tao-docker-image">2. Tạo Docker image</a></li>
-<li><a class="reference internal" href="#chuan-bi-target-yaml-va-ros-bag">3. Chuẩn bị target YAML và ROS bag</a></li>
-<li><a class="reference internal" href="#chay-calibration-va-lay-ket-qua">4. Chạy calibration và lấy kết quả</a></li>
-<li><a class="reference internal" href="#ket-qua-mau-de-doi-chieu">Kết quả mẫu để đối chiếu</a></li>
+              <p class="caption" role="heading"><span class="caption-text">Getting Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial-original.html">Tutorial mentor — bản được cung cấp</a></li>
 </ul>
-</li>
-</ul>
-</div>
+
         </div>
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">Hướng dẫn calibration camera bằng Kalibr và Docker</a>
+          <a href="#">tutorials</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -68,8 +60,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Hướng dẫn calibration camera bằng Kalibr và Docker</li>
+      <li class="breadcrumb-item active">Camera Calibration Tutorial</li>
       <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -77,182 +70,47 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
 
-  <section id="huong-dan-calibration-camera-bang-kalibr-va-docker">
-<h1>Hướng dẫn calibration camera bằng Kalibr và Docker<a class="headerlink" href="#huong-dan-calibration-camera-bang-kalibr-va-docker" title="Link to this heading"></a></h1>
-<p>Tài liệu này trình bày quy trình calibration một camera từ ROS bag theo tutorial
-của mentor. Các lệnh chạy trên <strong>host Linux</strong> trừ khi có nhãn <strong>container</strong>.
-Ví dụ dùng bag <code class="docutils literal notranslate"><span class="pre">calibration_70.bag</span></code>, topic <code class="docutils literal notranslate"><span class="pre">/camera/image_raw</span></code> và bảng
-AprilGrid 6 × 6. Hãy thay tên file, topic và kích thước bảng theo dữ liệu của bạn.</p>
-<section id="tao-workspace-va-clone-ma-kalibr">
-<h2>1. Tạo workspace và clone mã Kalibr<a class="headerlink" href="#tao-workspace-va-clone-ma-kalibr" title="Link to this heading"></a></h2>
-<p>Trên host, tạo workspace:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">KALIBR_WS</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/kalibr_workspace"</span>
-mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">"</span><span class="nv">$KALIBR_WS</span><span class="s2">/src"</span>
-<span class="nb">cd</span><span class="w"> </span><span class="s2">"</span><span class="nv">$KALIBR_WS</span><span class="s2">"</span>
-</pre></div>
-</div>
-<p>Clone mã từ repository trong tutorial của mentor vào <code class="docutils literal notranslate"><span class="pre">src/kalibr</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://archlinux.tail3e91a1.ts.net/tools/camera_calibration.git<span class="w"> </span><span class="s2">"</span><span class="nv">$KALIBR_WS</span><span class="s2">/src/kalibr"</span>
-ls<span class="w"> </span><span class="s2">"</span><span class="nv">$KALIBR_WS</span><span class="s2">/src/kalibr"</span>
-</pre></div>
-</div>
-<p>URL clone giữ nguyên theo tutorial mentor; phần đường dẫn đích giúp mã nằm đúng
-<code class="docutils literal notranslate"><span class="pre">src/kalibr</span></code> để khớp Dockerfile ở bước 2. Cần có quyền truy cập repository
-nội bộ này. Nếu thư mục đích đã có mã đầy đủ, bỏ qua lệnh <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span></code>.</p>
-</section>
-<section id="tao-docker-image">
-<h2>2. Tạo Docker image<a class="headerlink" href="#tao-docker-image" title="Link to this heading"></a></h2>
-<p>Tạo file <code class="docutils literal notranslate"><span class="pre">Dockerfile_ros1_20_04</span></code> ở gốc workspace và dùng nội dung sau:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="s2">"</span><span class="nv">$KALIBR_WS</span><span class="s2">"</span>
-nano<span class="w"> </span>Dockerfile_ros1_20_04
-</pre></div>
-</div>
-<div class="highlight-dockerfile notranslate"><div class="highlight"><pre><span></span><span class="k">FROM</span><span class="w"> </span><span class="s">osrf/ros:noetic-desktop-full</span>
-
-<span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>--no-install-recommends<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>git<span class="w"> </span>wget<span class="w"> </span>autoconf<span class="w"> </span>automake<span class="w"> </span>nano<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>python3-dev<span class="w"> </span>python3-pip<span class="w"> </span>python3-scipy<span class="w"> </span>python3-matplotlib<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>ipython3<span class="w"> </span>python3-wxgtk4.0<span class="w"> </span>python3-tk<span class="w"> </span>python3-igraph<span class="w"> </span>python3-pyx<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libeigen3-dev<span class="w"> </span>libboost-all-dev<span class="w"> </span>libsuitesparse-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>doxygen<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libopencv-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libpoco-dev<span class="w"> </span>libtbb-dev<span class="w"> </span>libblas-dev<span class="w"> </span>liblapack-dev<span class="w"> </span>libv4l-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>python3-catkin-tools<span class="w"> </span>python3-osrf-pycommon<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>byobu<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
-
-<span class="k">ENV</span><span class="w"> </span><span class="nv">WORKSPACE</span><span class="o">=</span>/catkin_ws
-<span class="k">ENV</span><span class="w"> </span><span class="nv">MPLBACKEND</span><span class="o">=</span>Agg
-<span class="k">ENV</span><span class="w"> </span><span class="nv">KALIBR_MANUAL_FOCAL_LENGTH_INIT</span><span class="o">=</span><span class="m">1</span>
-
-<span class="k">RUN</span><span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="nv">$WORKSPACE</span>/src<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="nb">cd</span><span class="w"> </span><span class="nv">$WORKSPACE</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>catkin<span class="w"> </span>init<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>catkin<span class="w"> </span>config<span class="w"> </span>--extend<span class="w"> </span>/opt/ros/noetic<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>catkin<span class="w"> </span>config<span class="w"> </span>--cmake-args<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release
-
-<span class="k">COPY</span><span class="w"> </span>./src/kalibr<span class="w"> </span><span class="nv">$WORKSPACE</span>/src/kalibr
-
-<span class="k">RUN</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span><span class="nv">$WORKSPACE</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>catkin<span class="w"> </span>build<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
-
-<span class="k">RUN</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">'#!/bin/bash\n\</span>
-<span class="s1">set -e\n\</span>
-<span class="s1">source "$WORKSPACE/devel/setup.bash"\n\</span>
-<span class="s1">export MPLBACKEND=Agg\n\</span>
-<span class="s1">export KALIBR_MANUAL_FOCAL_LENGTH_INIT=1\n\</span>
-<span class="s1">exec "$@"'</span><span class="w"> </span>&gt;<span class="w"> </span>/entrypoint.sh<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>/entrypoint.sh
-
-<span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">"/entrypoint.sh"</span><span class="p">]</span>
-<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">"bash"</span><span class="p">]</span>
-</pre></div>
-</div>
-<p>Lưu file rồi build image. Dấu <code class="docutils literal notranslate"><span class="pre">.</span></code> cuối lệnh là build context và cần có
-<code class="docutils literal notranslate"><span class="pre">src/kalibr</span></code> bên trong:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>Dockerfile_ros1_20_04<span class="w"> </span>-t<span class="w"> </span>kalibr:local<span class="w"> </span>.
-docker<span class="w"> </span>image<span class="w"> </span>ls<span class="w"> </span>kalibr:local
-</pre></div>
-</div>
-<p>Khi thành công, danh sách image có <code class="docutils literal notranslate"><span class="pre">kalibr:local</span></code>. ID và dung lượng image có
-thể khác ví dụ của mentor. Nếu build báo thiếu <code class="docutils literal notranslate"><span class="pre">src/kalibr</span></code>, kiểm tra lại bước 1
-và chạy lệnh build từ gốc workspace.</p>
-</section>
-<section id="chuan-bi-target-yaml-va-ros-bag">
-<h2>3. Chuẩn bị target YAML và ROS bag<a class="headerlink" href="#chuan-bi-target-yaml-va-ros-bag" title="Link to this heading"></a></h2>
-<p>Tạo thư mục dữ liệu và file <code class="docutils literal notranslate"><span class="pre">target.yaml</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">"</span><span class="nv">$KALIBR_WS</span><span class="s2">/data"</span>
-<span class="nb">cd</span><span class="w"> </span><span class="s2">"</span><span class="nv">$KALIBR_WS</span><span class="s2">/data"</span>
-nano<span class="w"> </span>target.yaml
-</pre></div>
-</div>
-<p>Nội dung ví dụ từ tutorial mentor:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">target_type</span><span class="p">:</span><span class="w"> </span><span class="s">'aprilgrid'</span>
-<span class="nt">tagCols</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span>
-<span class="nt">tagRows</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span>
-<span class="nt">tagSize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0235</span>
-<span class="nt">tagSpacing</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2979</span>
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">tagSize</span></code> là cạnh tag theo mét (23,5 mm). <code class="docutils literal notranslate"><span class="pre">tagSpacing</span></code> là tỷ lệ khoảng
-hở/cạnh tag; ở đây khoảng hở xấp xỉ 7 mm. <strong>Đo bảng thực tế</strong> và sửa các giá trị
-nếu bảng của bạn khác ví dụ.</p>
-<p>Copy bag vào cùng thư mục, rồi xác nhận có cả hai file:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cp<span class="w"> </span>/duong/dan/toi/calibration_70.bag<span class="w"> </span><span class="s2">"</span><span class="nv">$KALIBR_WS</span><span class="s2">/data/"</span>
-ls<span class="w"> </span>-lh<span class="w"> </span><span class="s2">"</span><span class="nv">$KALIBR_WS</span><span class="s2">/data/target.yaml"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$KALIBR_WS</span><span class="s2">/data/calibration_70.bag"</span>
-</pre></div>
-</div>
-<p>Nếu bag đã nằm trong <code class="docutils literal notranslate"><span class="pre">data</span></code>, bỏ qua lệnh <code class="docutils literal notranslate"><span class="pre">cp</span></code>.</p>
-</section>
-<section id="chay-calibration-va-lay-ket-qua">
-<h2>4. Chạy calibration và lấy kết quả<a class="headerlink" href="#chay-calibration-va-lay-ket-qua" title="Link to this heading"></a></h2>
-<p><strong>Host — terminal thứ nhất:</strong> chạy image, mount thư mục <code class="docutils literal notranslate"><span class="pre">data</span></code> vào <code class="docutils literal notranslate"><span class="pre">/data</span></code>.
-Giữ terminal này mở cho đến khi đã copy xong kết quả:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--net<span class="o">=</span>host<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--ipc<span class="o">=</span>host<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-w<span class="w"> </span>/catkin_ws<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-v<span class="w"> </span><span class="s2">"</span><span class="nv">$KALIBR_WS</span><span class="s2">/data:/data:rw"</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>kalibr:local
-</pre></div>
-</div>
-<p><strong>Container — trong terminal thứ nhất:</strong> kiểm tra bag và chạy Kalibr:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>/catkin_ws/devel/setup.bash
-rosbag<span class="w"> </span>info<span class="w"> </span>/data/calibration_70.bag
-rosrun<span class="w"> </span>kalibr<span class="w"> </span>kalibr_calibrate_cameras<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--target<span class="w"> </span>/data/target.yaml<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--bag<span class="w"> </span>/data/calibration_70.bag<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--topics<span class="w"> </span>/camera/image_raw<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--models<span class="w"> </span>pinhole-radtan<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--dont-show-report
-</pre></div>
-</div>
-<p>Trong <code class="docutils literal notranslate"><span class="pre">rosbag</span> <span class="pre">info</span></code>, xác nhận topic ảnh của bạn có kiểu <code class="docutils literal notranslate"><span class="pre">sensor_msgs/Image</span></code>.
-Nếu topic khác <code class="docutils literal notranslate"><span class="pre">/camera/image_raw</span></code>, thay giá trị của <code class="docutils literal notranslate"><span class="pre">--topics</span></code>. Lệnh chạy
-trong <code class="docutils literal notranslate"><span class="pre">/catkin_ws</span></code>, nên Kalibr ghi ba file kết quả vào thư mục đó trong
-container:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>camchain-calibration_70.yaml
-results-cam-calibration_70.txt
-report-cam-calibration_70.pdf
-</pre></div>
-</div>
-<p><strong>Host — terminal thứ hai:</strong> khi lệnh calibration hoàn tất, khai báo lại cùng
-đường dẫn workspace, tìm tên hoặc ID container rồi copy kết quả ra máy. Thay
-<code class="docutils literal notranslate"><span class="pre">&lt;CONTAINER_ID&gt;</span></code> bằng ID từ <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">KALIBR_WS</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/kalibr_workspace"</span>
-docker<span class="w"> </span>ps
-docker<span class="w"> </span>cp<span class="w"> </span>&lt;CONTAINER_ID&gt;:/catkin_ws/camchain-calibration_70.yaml<span class="w"> </span><span class="s2">"</span><span class="nv">$KALIBR_WS</span><span class="s2">/data/"</span>
-docker<span class="w"> </span>cp<span class="w"> </span>&lt;CONTAINER_ID&gt;:/catkin_ws/results-cam-calibration_70.txt<span class="w"> </span><span class="s2">"</span><span class="nv">$KALIBR_WS</span><span class="s2">/data/"</span>
-docker<span class="w"> </span>cp<span class="w"> </span>&lt;CONTAINER_ID&gt;:/catkin_ws/report-cam-calibration_70.pdf<span class="w"> </span><span class="s2">"</span><span class="nv">$KALIBR_WS</span><span class="s2">/data/"</span>
-ls<span class="w"> </span>-lh<span class="w"> </span><span class="s2">"</span><span class="nv">$KALIBR_WS</span><span class="s2">/data/"</span>*calibration_70*
-</pre></div>
-</div>
-<p><strong>Quan trọng:</strong> copy trước khi gõ <code class="docutils literal notranslate"><span class="pre">exit</span></code> trong container. Tùy chọn <code class="docutils literal notranslate"><span class="pre">--rm</span></code>
-sẽ xóa container khi thoát. Sau khi đã kiểm tra đủ ba file trên host, gõ
-<code class="docutils literal notranslate"><span class="pre">exit</span></code> ở terminal thứ nhất.</p>
-</section>
-<section id="ket-qua-mau-de-doi-chieu">
-<h2>Kết quả mẫu để đối chiếu<a class="headerlink" href="#ket-qua-mau-de-doi-chieu" title="Link to this heading"></a></h2>
-<p>Các file dưới đây là kết quả mẫu của <code class="docutils literal notranslate"><span class="pre">calibration_70.bag</span></code>, không phải thông số
-áp dụng cho mọi camera. Dùng ba file do <strong>lần chạy của bạn</strong> tạo ra khi tích hợp.</p>
-<ul class="simple">
-<li><p><a class="reference download internal" download="" href="_downloads/ceb65449232d1c9f2cd363f592bb5e88/camchain-calibration_70.yaml"><code class="xref download docutils literal notranslate"><span class="pre">Camera</span> <span class="pre">YAML</span></code></a></p></li>
-<li><p><a class="reference download internal" download="" href="_downloads/2c3d8f3fcc4434788611790eaf21472d/results-cam-calibration_70.txt"><code class="xref download docutils literal notranslate"><span class="pre">Kết</span> <span class="pre">quả</span> <span class="pre">TXT</span></code></a></p></li>
-<li><p><a class="reference download internal" download="" href="_downloads/bbfb439059fbefdc6b99d1955fa25ec3/report-cam-calibration_70.pdf"><code class="xref download docutils literal notranslate"><span class="pre">Báo</span> <span class="pre">cáo</span> <span class="pre">PDF</span></code></a></p></li>
+  <section id="camera-calibration-tutorial">
+<h1>Camera Calibration Tutorial<a class="headerlink" href="#camera-calibration-tutorial" title="Link to this heading"></a></h1>
+<p>Welcome to the Kalibr camera calibration documentation. Use the sidebar to navigate through the guide.</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Getting Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial-original.html">Tutorial mentor — bản được cung cấp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial-original.html#step-2">Step 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial-original.html#step-3-create-folder-which-containing-yaml-and-bag-file">STEP 3: create folder which containing yaml and bag file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial-original.html#step-4-run-image">STEP 4: Run image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial-original.html#ghi-chu-tu-trao-doi">Ghi chú từ trao đổi</a></li>
 </ul>
+</li>
+</ul>
+</div>
 </section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tutorial-original.html" class="btn btn-neutral float-right" title="Tutorial mentor — bản được cung cấp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p></p>
+    <p>&#169; Copyright 2026, Phat-hc.</p>
   </div>
 
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
 
 
 </footer>

@@ -1,13 +1,12 @@
-# Hướng dẫn calibration camera bằng Kalibr và Docker
+# Tutorial Kalibr theo bản mentor
 
-Một trang tutorial theo quy trình của mentor: clone mã Kalibr, build Docker image, tạo AprilGrid YAML, chạy calibration với ROS bag và lấy kết quả. Bản trình bày dùng Sphinx Read the Docs theme; chỉ ẩn menu bên trái theo yêu cầu.
+Bộ tài liệu dùng cấu trúc Sphinx và `sphinx_rtd_theme` như `pcs-docs-master.zip`: có trang chủ, menu trái, ô tìm kiếm, trang Index và footer. Nội dung trang tutorial là bản sao nguyên byte của [`tutorial-original.md`](calibration/mentor/tutorial-original.md); không chỉnh lệnh hay câu chữ của mentor.
 
-- [Mở bản HTML offline](calibration/docs/html/index.html) — tải repo, mở `index.html` bằng trình duyệt; GitHub không hiển thị HTML trực tiếp.
-- [Nguồn tutorial](calibration/docs/source/index.rst)
-- [Tutorial mentor nguyên bản](calibration/mentor/tutorial-original.md)
-- [Dockerfile mẫu](calibration/Dockerfile_ros1_20_04)
+- [Trang chủ HTML offline](calibration/docs/html/index.html)
+- [Trang tutorial HTML](calibration/docs/html/tutorial-original.html)
+- [Nguồn Markdown nguyên bản](calibration/docs/source/tutorial-original.md)
 
-Để sửa và xuất lại HTML (Python 3.10 trở lên):
+Để build lại (Python 3.10 trở lên):
 
 ```bash
 python3 -m venv calibration/docs/.venv
@@ -16,6 +15,4 @@ bash calibration/docs/build.sh
 bash calibration/docs/publish-html.sh
 ```
 
-Mở `calibration/docs/html/index.html` sau khi xuất. Giữ nguyên cả thư mục `html` khi chia sẻ để CSS, font và ba file kết quả mẫu đi kèm hoạt động offline.
-
-Repo không chứa ROS bag, Docker image hay mã Kalibr. Người chạy cần quyền truy cập repository Kalibr nội bộ trong Bước 1, cùng dữ liệu và bảng AprilGrid đúng với camera của mình. Kết quả đính kèm chỉ là ví dụ, không dùng trực tiếp cho camera khác.
+Giữ cả thư mục `calibration/docs/html` khi chia sẻ để giao diện và tìm kiếm hoạt động offline. Repo không chứa ROS bag, Docker image hoặc mã Kalibr. Vì nội dung giữ nguyên bản gốc, các lệnh và đường dẫn trong tutorial chưa được sửa hay xác nhận chạy được trên máy khác.
