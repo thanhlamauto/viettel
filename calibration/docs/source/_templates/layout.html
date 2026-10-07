@@ -1,5 +1,16 @@
 {% extends "!layout.html" %}
-{% set metatags = metatags|replace('<meta name="viewport" content="width=device-width, initial-scale=1" />', '') %}
-{% block htmltitle %}<title>{{ title|striptags|e }}</title>{% endblock %}
-{% block extrahead %}{% endblock %}
-{% block footer %}{% endblock %}
+{% block htmltitle %}<title>{{ title|striptags|e }} · Kalibr Guide</title>{% endblock %}
+{% block header %}
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="brand" href="{{ pathto('index') }}"><span class="brand__mark">K</span><span>Kalibr <em>Guide</em></span></a>
+    <nav aria-label="Điều hướng chính">
+      <a href="{{ pathto('index') }}">Quy trình</a>
+      <a href="{{ pathto('index') }}#ket-qua-cuoi">Kết quả mẫu</a>
+    </nav>
+  </div>
+</header>
+{% endblock %}
+{% block footer %}
+<footer class="site-footer"><span>Kalibr Guide</span><span>Hướng dẫn thực hành · bản HTML offline</span></footer>
+{% endblock %}

@@ -1,5 +1,9 @@
-Calibration camera với Kalibr và Docker
+Hướng dẫn calibration camera bằng Kalibr và Docker
 ====================================================================================================
+
+.. raw:: html
+
+   <p class="eyebrow">HƯỚNG DẪN THỰC HÀNH · CAMERA CALIBRATION</p>
 
 Hiệu chuẩn một camera từ ROS bag bằng Kalibr trong Docker ROS Noetic.
 Mỗi bước gồm lệnh chạy, nơi chạy, ý nghĩa và kết quả mong đợi. Output minh họa
@@ -11,16 +15,26 @@ Các lệnh sử dụng ``calibration_70.bag`` và ``/camera/image_raw`` làm v�
 thay bằng tên bag và topic của bạn. Kết quả tham khảo ở :ref:`ket-qua-cuoi`.
 Chạy lại calibration trong cùng thư mục sẽ ghi đè kết quả cùng tên.
 
+.. contents:: Trong trang này
+   :local:
+   :depth: 1
+
 Luồng và đường dẫn
 ----------------------------------------------------------------------------------------------------
 
-.. code-block:: text
+.. raw:: html
 
-   Mã Kalibr trên máy -> docker build -> image kalibr:local
-                                           |
-   target.yaml + calibration_70.bag -> docker run -> Kalibr
-                                           |
-                        YAML thông số + TXT kết quả + PDF báo cáo
+   <div class="workflow" aria-label="Luồng hiệu chuẩn camera">
+     <div class="workflow__step"><span>01 · CHUẨN BỊ</span><strong>Mã Kalibr + Dockerfile</strong><small>Build image kalibr:local</small></div>
+     <div class="workflow__arrow" aria-hidden="true">→</div>
+     <div class="workflow__step"><span>02 · HIỆU CHUẨN</span><strong>Bag + AprilGrid</strong><small>Chạy Kalibr trong container</small></div>
+     <div class="workflow__arrow" aria-hidden="true">→</div>
+     <div class="workflow__step"><span>03 · KẾT QUẢ</span><strong>YAML · TXT · PDF</strong><small>Kiểm tra và tích hợp</small></div>
+   </div>
+
+Thư mục làm việc dự kiến:
+
+.. code-block:: text
 
    ${KALIBR_WS}/
    ├── Dockerfile_ros1_20_04
@@ -495,30 +509,3 @@ Tài liệu tham khảo
 * `Kalibr camera calibration <https://github.com/ethz-asl/kalibr/wiki/multiple-camera-calibration>`_
 * `Kalibr calibration targets <https://github.com/ethz-asl/kalibr/wiki/calibration-targets>`_
 * `Docker bind mounts <https://docs.docker.com/engine/storage/bind-mounts/>`_
-* `Sphinx quickstart <https://www.sphinx-doc.org/en/master/usage/quickstart.html>`_
-
-Build lại tài liệu bằng Sphinx trên host
-----------------------------------------------------------------------------------------------------
-
-Bộ nguồn nằm trong ``docs/source``; HTML nằm trong ``docs/build/html``.
-File ``index.rst`` là nội dung hướng dẫn, ``conf.py`` cấu hình Sphinx và
-``Dockerfile_ros1_20_04.example`` là bản Dockerfile minh họa cố định.
-
-Nếu chỉ đọc hướng dẫn, không cần cài Sphinx. Nếu muốn sửa và build lại, đặt bộ
-nguồn ``docs`` trong workspace đã chọn rồi chạy trên host:
-
-.. code-block:: bash
-
-   cd "$KALIBR_WS"
-   python3 -m venv docs/.venv
-   docs/.venv/bin/python -m pip install --no-cache-dir sphinx
-   bash docs/build.sh
-   xdg-open docs/build/html/index.html
-
-**Ý nghĩa:** tạo môi trường Python riêng, cài Sphinx rồi build HTML.
-Script ``build.sh`` xác định đường dẫn tương đối theo vị trí của chính nó;
-``-W`` biến warning thành lỗi, ``--keep-going`` thu thập các lỗi còn lại.
-**Kết quả mong đợi:** thông báo ``build succeeded`` và trình duyệt mở hướng dẫn.
-Cần Python có hỗ trợ venv và mạng để cài Sphinx. Nếu môi trường đã có, bỏ qua
-hai lệnh tạo venv/cài package. Khi chia sẻ HTML, gửi cả thư mục ``docs/build/html``
-để giữ font, CSS và file kết quả tham khảo đi kèm.

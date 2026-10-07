@@ -13,5 +13,5 @@ html_show_copyright = False
 pygments_style = 'friendly'
 templates_path = ['_templates']
 html_static_path = ['_static']
-html_css_files = ['fonts.css', 'custom.css']
+html_css_files = ['custom.css']
 exclude_patterns = []
