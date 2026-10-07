@@ -6,7 +6,7 @@ của mentor. Các lệnh chạy trên **host Linux** trừ khi có nhãn **cont
 Ví dụ dùng bag ``calibration_70.bag``, topic ``/camera/image_raw`` và bảng
 AprilGrid 6 × 6. Hãy thay tên file, topic và kích thước bảng theo dữ liệu của bạn.
 
-1. Tạo workspace và chuẩn bị mã Kalibr
+1. Tạo workspace và clone mã Kalibr
 --------------------------------------
 
 Trên host, tạo workspace:
@@ -17,16 +17,16 @@ Trên host, tạo workspace:
    mkdir -p "$KALIBR_WS/src"
    cd "$KALIBR_WS"
 
-Mentor dùng mã Kalibr được cung cấp ở máy local. Copy **toàn bộ** thư mục mã vào
-``src/kalibr``; thay đường dẫn nguồn trong lệnh sau bằng đường dẫn thực tế:
+Clone mã từ repository trong tutorial của mentor vào ``src/kalibr``:
 
 .. code-block:: bash
 
-   cp -a /duong/dan/toi/kalibr "$KALIBR_WS/src/kalibr"
+   git clone https://archlinux.tail3e91a1.ts.net/tools/camera_calibration.git "$KALIBR_WS/src/kalibr"
    ls "$KALIBR_WS/src/kalibr"
 
-Sau bước này, mã nằm trực tiếp trong ``src/kalibr``. Nếu thư mục đích đã có mã
-đầy đủ, bỏ qua lệnh ``cp``. Không để thành ``src/kalibr/kalibr``.
+URL clone giữ nguyên theo tutorial mentor; phần đường dẫn đích giúp mã nằm đúng
+``src/kalibr`` để khớp Dockerfile ở bước 2. Cần có quyền truy cập repository
+nội bộ này. Nếu thư mục đích đã có mã đầy đủ, bỏ qua lệnh ``git clone``.
 
 2. Tạo Docker image
 -------------------

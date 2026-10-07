@@ -45,7 +45,7 @@
               <!-- Local TOC -->
               <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Hướng dẫn calibration camera bằng Kalibr và Docker</a><ul>
-<li><a class="reference internal" href="#tao-workspace-va-chuan-bi-ma-kalibr">1. Tạo workspace và chuẩn bị mã Kalibr</a></li>
+<li><a class="reference internal" href="#tao-workspace-va-clone-ma-kalibr">1. Tạo workspace và clone mã Kalibr</a></li>
 <li><a class="reference internal" href="#tao-docker-image">2. Tạo Docker image</a></li>
 <li><a class="reference internal" href="#chuan-bi-target-yaml-va-ros-bag">3. Chuẩn bị target YAML và ROS bag</a></li>
 <li><a class="reference internal" href="#chay-calibration-va-lay-ket-qua">4. Chạy calibration và lấy kết quả</a></li>
@@ -83,22 +83,22 @@
 của mentor. Các lệnh chạy trên <strong>host Linux</strong> trừ khi có nhãn <strong>container</strong>.
 Ví dụ dùng bag <code class="docutils literal notranslate"><span class="pre">calibration_70.bag</span></code>, topic <code class="docutils literal notranslate"><span class="pre">/camera/image_raw</span></code> và bảng
 AprilGrid 6 × 6. Hãy thay tên file, topic và kích thước bảng theo dữ liệu của bạn.</p>
-<section id="tao-workspace-va-chuan-bi-ma-kalibr">
-<h2>1. Tạo workspace và chuẩn bị mã Kalibr<a class="headerlink" href="#tao-workspace-va-chuan-bi-ma-kalibr" title="Link to this heading"></a></h2>
+<section id="tao-workspace-va-clone-ma-kalibr">
+<h2>1. Tạo workspace và clone mã Kalibr<a class="headerlink" href="#tao-workspace-va-clone-ma-kalibr" title="Link to this heading"></a></h2>
 <p>Trên host, tạo workspace:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">KALIBR_WS</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/kalibr_workspace"</span>
 mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">"</span><span class="nv">$KALIBR_WS</span><span class="s2">/src"</span>
 <span class="nb">cd</span><span class="w"> </span><span class="s2">"</span><span class="nv">$KALIBR_WS</span><span class="s2">"</span>
 </pre></div>
 </div>
-<p>Mentor dùng mã Kalibr được cung cấp ở máy local. Copy <strong>toàn bộ</strong> thư mục mã vào
-<code class="docutils literal notranslate"><span class="pre">src/kalibr</span></code>; thay đường dẫn nguồn trong lệnh sau bằng đường dẫn thực tế:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cp<span class="w"> </span>-a<span class="w"> </span>/duong/dan/toi/kalibr<span class="w"> </span><span class="s2">"</span><span class="nv">$KALIBR_WS</span><span class="s2">/src/kalibr"</span>
+<p>Clone mã từ repository trong tutorial của mentor vào <code class="docutils literal notranslate"><span class="pre">src/kalibr</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://archlinux.tail3e91a1.ts.net/tools/camera_calibration.git<span class="w"> </span><span class="s2">"</span><span class="nv">$KALIBR_WS</span><span class="s2">/src/kalibr"</span>
 ls<span class="w"> </span><span class="s2">"</span><span class="nv">$KALIBR_WS</span><span class="s2">/src/kalibr"</span>
 </pre></div>
 </div>
-<p>Sau bước này, mã nằm trực tiếp trong <code class="docutils literal notranslate"><span class="pre">src/kalibr</span></code>. Nếu thư mục đích đã có mã
-đầy đủ, bỏ qua lệnh <code class="docutils literal notranslate"><span class="pre">cp</span></code>. Không để thành <code class="docutils literal notranslate"><span class="pre">src/kalibr/kalibr</span></code>.</p>
+<p>URL clone giữ nguyên theo tutorial mentor; phần đường dẫn đích giúp mã nằm đúng
+<code class="docutils literal notranslate"><span class="pre">src/kalibr</span></code> để khớp Dockerfile ở bước 2. Cần có quyền truy cập repository
+nội bộ này. Nếu thư mục đích đã có mã đầy đủ, bỏ qua lệnh <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span></code>.</p>
 </section>
 <section id="tao-docker-image">
 <h2>2. Tạo Docker image<a class="headerlink" href="#tao-docker-image" title="Link to this heading"></a></h2>
