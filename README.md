@@ -1,18 +1,23 @@
-# Tutorial Kalibr theo bản mentor
+# Camera Calibration with Kalibr and Docker
 
-Bộ tài liệu dùng cấu trúc Sphinx và `sphinx_rtd_theme` như `pcs-docs-master.zip`: có trang chủ, menu trái, ô tìm kiếm, trang Index và footer. Trang tutorial giữ nguyên nội dung và các lệnh của [bản mentor gốc](calibration/mentor/tutorial-original.md), chỉ đổi tiêu đề và bỏ phần lời dẫn ở đầu.
+This is the Sphinx source for the Kalibr tutorial, using `sphinx_rtd_theme` to match the format of `pcs-docs-master.zip`. The tutorial preserves the mentor's commands and paths. Its title, introductory note, and discussion note were edited for this version.
 
-- [Trang chủ HTML offline](calibration/docs/html/index.html)
-- [Trang tutorial HTML](calibration/docs/html/tutorial-original.html)
-- [Nguồn Markdown của trang tutorial](calibration/docs/source/tutorial-original.md)
+Source files:
 
-Để build lại (Python 3.10 trở lên):
+- [Tutorial content](calibration/docs/source/tutorial-original.md)
+- [Sphinx home page](calibration/docs/source/index.rst)
+- [Sphinx configuration](calibration/docs/source/conf.py)
+- [Python dependencies](calibration/docs/requirements.txt)
+- [Build script](calibration/docs/build.sh)
+
+Keep the entire `calibration/docs/source/` directory together; it contains the fonts and sample results referenced by the tutorial. Generated `build/`, `html/`, and `.venv/` directories are not needed in the source package.
+
+Build the documentation with Python 3.10 or newer:
 
 ```bash
 python3 -m venv calibration/docs/.venv
 calibration/docs/.venv/bin/python -m pip install -r calibration/docs/requirements.txt
 bash calibration/docs/build.sh
-bash calibration/docs/publish-html.sh
 ```
 
-Giữ cả thư mục `calibration/docs/html` khi chia sẻ để giao diện và tìm kiếm hoạt động offline. Repo không chứa ROS bag, Docker image hoặc mã Kalibr. Các lệnh và đường dẫn trong tutorial chưa được sửa hay xác nhận chạy được trên máy khác.
+Open `calibration/docs/build/html/index.html` after the build. The repository does not include ROS bag files, Docker images, or Kalibr source code. The tutorial's commands and paths have not been verified on another machine.

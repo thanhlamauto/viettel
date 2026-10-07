@@ -1,4 +1,4 @@
-# Hướng dẫn calibration camera bằng Kalibr và Docker
+# Camera Calibration with Kalibr and Docker
 
 Create workspace:
 
@@ -147,6 +147,6 @@ docker cp <CONTAINER_ID_OR_NAME>:/catkin_ws/report-cam-calibration_70.pdf /home/
 docker cp <CONTAINER_ID_OR_NAME>:/catkin_ws/results-cam-calibration_70.txt /home/getac/kalibr_workspace/data/
 ```
 
-## Ghi chú từ trao đổi
+## Note from the discussion
 
-Mentor yêu cầu dùng bản mã local thay cho clone repository nội bộ. Người học đã dừng tại bước build image; log lỗi lúc đó được lưu trong `build-session.txt`.
+The mentor asked to use the local source instead of cloning the internal repository. The learner stopped at the image build step; the error log from that session is saved in `build-session.txt`.

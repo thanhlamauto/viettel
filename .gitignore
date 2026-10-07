@@ -4,6 +4,7 @@ __pycache__/
 *.bag
 *.bag.active
 calibration/docs/build/
+calibration/docs/html/
 .DS_Store
 .doctrees/
 .buildinfo*
