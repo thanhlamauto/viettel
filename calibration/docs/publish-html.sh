@@ -13,8 +13,9 @@ cp -R -- "$SOURCE" "$DESTINATION"
 python3 - "$DESTINATION" <<'PYTHON'
 from pathlib import Path
 import sys
-for path in Path(sys.argv[1]).rglob('*.html'):
-    text = path.read_text()
-    path.write_text('\n'.join(line.rstrip() for line in text.split('\n')))
+for pattern in ('*.html', '*.svg'):
+    for path in Path(sys.argv[1]).rglob(pattern):
+        text = path.read_text()
+        path.write_text('\n'.join(line.rstrip() for line in text.split('\n')))
 PYTHON
 echo "Đã cập nhật $DESTINATION"
